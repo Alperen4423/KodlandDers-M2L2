@@ -30,7 +30,7 @@ geri_donusum_rehberi = {
 # Ayrışma süreleri (yaklaşık değerler)
 ayrisma_sureleri = {
     "plastik şişe": "450 yıl",
-    "cam şişe": "1 milyon yıl",
+    "cam şişe": "4000 yıl",
     "metal kutu": "50 yıl",
     "karton": "2 ay",
     "muz kabuğu": "2 hafta",
