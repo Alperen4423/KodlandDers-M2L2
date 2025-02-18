@@ -1,6 +1,24 @@
 import discord
 import random
 
+# Emoji oluşturucu
+def emoji_olusturucu():
+    emoji = ["😀", "🙂", "😂", "🤣", "😎", "😇", "😍", "🥳", "😡", "🤯"]
+    return random.choice(emoji)
+
+# Yazı tura
+def yazi_tura():
+    return random.choice(["YAZI", "TURA"])
+
+# Sayı tahmin oyunu
+def sayi_tahmin_oyunu(tahmin, gercek):
+    if tahmin == gercek:
+        return "Doğru bildiniz! 🎉"
+    elif tahmin < gercek:
+        return "Daha büyük bir sayı deneyin!"
+    else:
+        return "Daha küçük bir sayı deneyin!"
+
 
 # İstekler değişkeni botun yetkilerini saklar
 intents = discord.Intents.default()
@@ -48,12 +66,27 @@ async def on_message(message):
     
     if message.content.startswith('$hello'):
         await message.channel.send("Merhaba!")
+
+    elif message.content.startswith('$smile'):
+        await message.channel.send(emoji_olusturucu())
+
+    elif message.content.startswith('$coin'):
+        await message.channel.send(yazi_tura())
     
     elif message.content.startswith('$bye'):
         await message.channel.send("\U0001f642")
     
     elif message.content.startswith('$nasılsın'):
         await message.channel.send("İyiyim, sen nasılsın?")
+
+    elif message.content.startswith('$guess'):
+        try:
+            tahmin_edilecek_sayi = random.randint(1, 100)
+            tahmin = int(message.content.split()[1])
+            cevap = sayi_tahmin_oyunu(tahmin, tahmin_edilecek_sayi)
+            await message.channel.send(cevap)
+        except (ValueError, IndexError):
+            await message.channel.send("Lütfen bir sayı girin: `$guess [sayı]`")
     
     elif message.content.startswith('$elisi'):
         fikir = random.choice(el_isi_fikirleri)
@@ -76,4 +109,4 @@ async def on_message(message):
     else:
         await message.channel.send("Komutu anlayamadım. Lütfen `$hello`, `$bye`, `$nasılsın`, `$elisi`, `$geri [öğe]`, `$ayrisma [öğe]` gibi komutlar kullanın.")
 
-client.run("")
+client.run("Your TOKEN")
